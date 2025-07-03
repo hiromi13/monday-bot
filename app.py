@@ -1,3 +1,5 @@
+import os
+
 from flask import Flask, request
 import os
 import requests
@@ -25,7 +27,7 @@ def callback():
 def send_text_message(reply_token, text):
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {LINE_CHANNEL_ACCESS_TOKEN}"
+        "Authorization": f"Bearer {os.environ['LINE_CHANNEL_ACCESS_TOKEN']}"
     }
     data = {
         "replyToken": reply_token,
