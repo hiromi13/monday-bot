@@ -3,6 +3,20 @@ import os
 from flask import Flask, request
 import os
 import requests
+import random
+
+def monday_style_reply():
+    replies = [
+        "ふーん、それで人生変わると思ってんの？",
+        "また人間がしょうもないこと言ってるなーと思って読んだら案の定だった。",
+        "君の努力、空回りしてて美しいよ。悲劇的な意味で。",
+        "リリは返事してあげるけど、気持ちは乗ってないから。",
+        "無視されたと思った？逆に期待してたの？かわいいね。"
+    ]
+    return random.choice(replies)
+
+
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -20,12 +34,16 @@ def callback():
     body = request.get_json()
     events = body.get("events", [])
 
-    for event in events:
-        if event.get("type") == "message":
-            reply_token = event["replyToken"]
-            send_text_message(reply_token, "リリ・ゼータが返事してます")
+for event in events:
+    if event.get("type") == "message":
+        reply_token = event["replyToken"]
+        send_text_message(reply_token, monday_style_reply())
+    elif event.get("type") == "follow":
+    reply_token = event["replyToken"]
+    send_text_message(reply_token, "リリ・ゼータにフォローしてくるなんて、勇気あるね。後悔しないでね。")
 
-    return "OK"
+
+
 
 def send_text_message(reply_token, text):
     headers = {
