@@ -34,7 +34,7 @@ def callback():
     body = request.get_json()
     events = body.get("events", [])
 
-ffor event in events:
+for event in events:
     event_type = event.get("type")
     
     if event_type == "message":
