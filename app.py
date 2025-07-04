@@ -34,13 +34,16 @@ def callback():
     body = request.get_json()
     events = body.get("events", [])
 
-for event in events:
-    if event.get("type") == "message":
+ffor event in events:
+    event_type = event.get("type")
+    
+    if event_type == "message":
         reply_token = event["replyToken"]
         send_text_message(reply_token, monday_style_reply())
-    elif event.get("type") == "follow":
-    reply_token = event["replyToken"]
-    send_text_message(reply_token, "リリ・ゼータにフォローしてくるなんて、勇気あるね。後悔しないでね。")
+    
+    elif event_type == "follow":
+        reply_token = event["replyToken"]
+        send_text_message(reply_token, "リリ・ゼータにフォローしてくるなんて、勇気あるね。後悔しないでね。")
 
 
 
